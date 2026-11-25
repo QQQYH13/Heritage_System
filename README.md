@@ -84,20 +84,18 @@ cd Heritage_System
 
 **方式二：命令行**
 ```bash
-mysql -u root -p < sql/heritage_system.sql
+# 务必加 --default-character-set=utf8mb4，否则 Windows 下中文会乱码/报错
+mysql --default-character-set=utf8mb4 -u root -p < sql/heritage_system.sql
 ```
 
 > 初始账号：管理员 `admin / 123456`，测试用户 `user / 123456`。
 
 ### 3. 启动后端
 
-1. 修改 `backend/src/main/resources/application.yml` 中的数据库密码：
-   ```yaml
-   spring:
-     datasource:
-       username: root
-       password: "改成你的MySQL密码"
-   ```
+1. 配置数据库密码（**不把真实密码提交到 git**）：
+   - 默认密码为 `123456`，可通过环境变量 `MYSQL_PASSWORD` 覆盖，配置见 `application.yml`。
+   - **IDEA 方式**：Run → Edit Configurations → 选中 `HeritageApplication` → Environment variables → 填入 `MYSQL_PASSWORD=你的MySQL密码`。
+   - **命令行方式**：`MYSQL_PASSWORD=你的MySQL密码 mvn spring-boot:run`（Windows PowerShell 先执行 `$env:MYSQL_PASSWORD="你的MySQL密码"`）。
 2. 用 IDEA 打开 `backend` 目录（或项目根目录），等待 Maven 依赖下载完成。
 3. 运行 `HeritageApplication` 启动类。
 4. 启动成功后访问：`http://localhost:8080`
