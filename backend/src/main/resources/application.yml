@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: heritage-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 注意：请把密码改成你自己的 MySQL root 密码
+    url: jdbc:mysql://localhost:3306/heritage_system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: "123456"
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 50MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.heritage.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 自定义配置
+jwt:
+  # 签名密钥（生产环境请修改）
+  secret: heritage-system-secret-key-please-change-this-2026
+  # token 过期时间（天）
+  expire: 7
+  # 请求头名称
+  header: Authorization
+
+# 文件上传保存路径（本地磁盘）
+file:
+  upload-path: D:/heritage/upload/
